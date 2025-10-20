@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TMS Copywriting — Grille Tarifaire</title>
+  <title>TMS Copywriting — Page de Vente</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
+    /* ---- STYLE GÉNÉRAL ---- */
     body {
       font-family: 'Poppins', sans-serif;
       color: #e6e6e6;
@@ -13,11 +14,39 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    /* ---- FOND AVEC COURBES SVG ---- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 300%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23bfbfbf" fill-opacity="0.08" d="M0,128L60,122.7C120,117,240,107,360,128C480,149,600,203,720,218.7C840,235,960,213,1080,186.7C1200,160,1320,128,1380,112L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"/></svg>');
+      background-size: cover;
+      background-repeat: repeat-y;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    /* ---- BARRE DE PROGRESSION ---- */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background-color: #c0c0c0;
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
     header {
       text-align: center;
       padding: 80px 20px 40px;
-      background: #0b0d17;
     }
     header h1 {
       font-family: 'Playfair Display', serif;
@@ -29,14 +58,13 @@
       font-size: 1.1rem;
       color: #b8b8b8;
     }
+
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 40px 20px;
     }
-    .section {
-      margin-bottom: 60px;
-    }
+
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
@@ -44,6 +72,7 @@
       color: #c0c0c0;
       text-align: center;
     }
+
     .intro {
       font-size: 1.05rem;
       color: #d0d0d0;
@@ -51,68 +80,110 @@
       max-width: 800px;
       margin: 0 auto 50px;
     }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-    .card {
-      background: #10131f;
-      border: 1px solid rgba(192,192,192,0.3);
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      padding: 25px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    }
-    .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #f0f0f0;
-    }
-    .card p {
-      color: #cfcfcf;
-      font-size: 0.95rem;
-    }
-    .price {
-      margin-top: 10px;
+
+    .intro strong {
       font-weight: 600;
-      color: #c0c0c0;
     }
-    .footer {
-      text-align: center;
-      background: #0b0d17;
-      padding: 60px 20px;
-      border-top: 1px solid rgba(192,192,192,0.2);
-    }
-    .footer img {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-    .footer p {
-      max-width: 700px;
-      margin: 0 auto 25px;
-      color: #b8b8b8;
-    }
-    .contact-btn {
+
+    /* ---- BOUTONS ---- */
+    .contact-btn, .portfolio-btn {
+      display: inline-block;
       background-color: #c0c0c0;
       color: #0b0d17;
       text-decoration: none;
       padding: 12px 28px;
       border-radius: 25px;
       font-weight: 500;
+      margin: 10px;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .contact-btn:hover {
+
+    .contact-btn:hover, .portfolio-btn:hover {
       background-color: #d8d8d8;
       color: #000;
     }
+
+    /* ---- OFFRES ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #10131f;
+      border: 1px solid rgba(192,192,192,0.3);
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      padding: 25px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .price {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #c0c0c0;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li::before {
+      content: "✅️";
+      margin-right: 8px;
+      color: #c0c0c0;
+    }
+
+    .benefits-section {
+      text-align: center;
+      margin: 60px auto;
+      max-width: 800px;
+    }
+
+    .benefits-section h2 {
+      color: #c0c0c0;
+      margin-bottom: 20px;
+    }
+
+    .benefits-section li {
+      margin: 8px 0;
+      color: #d0d0d0;
+      font-size: 1.05rem;
+    }
+
+    .footer {
+      text-align: center;
+      background: #0b0d17;
+      padding: 60px 20px;
+      border-top: 1px solid rgba(192,192,192,0.2);
+    }
+
+    .footer img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .footer p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: #b8b8b8;
+    }
+
   </style>
 </head>
+
 <body>
+  <div id="progress-bar"></div>
+
   <header>
     <h1>TMS COPYWRITING</h1>
     <p>« Votre réussite est mon meilleur argument. »</p>
@@ -123,84 +194,142 @@
       <p>Des mots qui vendent. Une voix qui marque. Des emails qui convertissent.</p>
       <p>Le copywriting, ce n’est pas seulement écrire : c’est créer un lien émotionnel fort, capter l’attention et transformer des lecteurs en clients fidèles.</p>
       <p>Chaque mot compte. Chaque ligne a une mission. Mon objectif : propulser vos statistiques et créer des campagnes rentables à travers des emails percutants, humains et stratégiques.</p>
+      <p><strong>Votre projet ne connaîtra jamais de meilleure réussite que maintenant.</strong></p>
       <p><em>*Les offres ci-dessous sont à titre indicatif et peuvent varier selon vos besoins spécifiques.</em></p>
     </div>
 
+    <!-- EMAIL UNIQUE -->
     <div class="section">
       <h2>💌 Email Unique</h2>
+      <p style="text-align:center; color:#ccc;">Parfait pour une newsletter, une annonce ou un email promotionnel. J’écris un message clair, engageant et optimisé pour inciter vos lecteurs à cliquer et à passer à l’action.</p>
       <div class="pricing-grid">
         <div class="card">
-          <h3>Short Email</h3>
-          <p>Court et direct, conçu pour transmettre un message simple (présentation produit, relance, etc.) et inciter à une action immédiate grâce aux biais cognitifs.</p>
-          <p class="price">120 €</p>
-        </div>
-        <div class="card">
-          <h3>Email de Vente</h3>
-          <p>Structure basée sur la science pour mettre en avant une offre, lever les objections et encourager la conversion grâce aux biais cognitifs.</p>
-          <p class="price">120 €</p>
-        </div>
-        <div class="card">
-          <h3>Email de Valeur</h3>
-          <p>Apporte des conseils ou enseignements, utile pour partager de la valeur, construire une audience ciblée et fidéliser facilement.</p>
-          <p class="price">130 €</p>
-        </div>
-        <div class="card">
-          <h3>Email Storytelling</h3>
-          <p>Basé sur un récit ou une expérience réelle, très efficace pour créer de l’identification au problème et renforcer la confiance envers le produit.</p>
-          <p class="price">150 €</p>
+          <ul>
+            <li>Short Email</li>
+            <li>Email de Vente</li>
+            <li>Email de Valeur</li>
+            <li>Email Storytelling</li>
+            <li>Email de Newsletter</li>
+            <li>Et tout ce dont vous aurez besoin !</li>
+          </ul>
+          <p class="price">120 – 150 €</p>
         </div>
       </div>
     </div>
 
+    <!-- SEQUENCES EMAILS -->
     <div class="section">
       <h2>🔗 Séquences d’emails</h2>
+      <p style="text-align:center; color:#ccc;">Idéal pour vos lancements, tunnels de vente, séquences d’onboarding ou relances. Je construis un parcours narratif fluide et cohérent pour guider le lecteur pas à pas vers la conversion.</p>
       <div class="pricing-grid">
         <div class="card">
           <h3>Séquence courte</h3>
-          <p>3 emails — idéale pour vos lancements, tunnels de vente, séquences d’onboarding ou relances.</p>
+          <ul>
+            <li>3 emails personnalisés et cohérents</li>
+            <li>Optimisation de l’accroche et du call-to-action</li>
+            <li>Structure persuasive adaptée à votre audience</li>
+          </ul>
           <p class="price">250 – 400 €</p>
         </div>
         <div class="card">
           <h3>Séquence complète</h3>
-          <p>4 ou 5 emails — parcours narratif fluide et cohérent pour guider le lecteur pas à pas vers la conversion.</p>
+          <ul>
+            <li>4 ou 5 emails stratégiques</li>
+            <li>Analyse de positionnement et storytelling intégré</li>
+            <li>Test A/B sur les objets et angles marketing</li>
+          </ul>
           <p class="price">400 – 700 €</p>
         </div>
         <div class="card">
           <h3>Séquence longue / Campagne de lancement</h3>
-          <p>6 à 10 emails — stratégie approfondie pour maximiser la cohérence et la performance de chaque message.</p>
+          <ul>
+            <li>6 à 10 emails parfaitement scénarisés</li>
+            <li>Segmentation de la liste et automatisations incluses</li>
+            <li>Conception de séquences de relance performantes</li>
+          </ul>
           <p class="price">700 – 1 200 €</p>
         </div>
       </div>
     </div>
 
+    <!-- PACKS STRATEGIQUES -->
     <div class="section">
       <h2>📦 Packs stratégiques</h2>
+      <p style="text-align:center; color:#ccc;">Des offres ambitieuses pour une approche clé en main qui combine stratégie, créativité et efficacité. Idéal pour un lancement, une newsletter régulière, ou un suivi complet de la vente de vos produits.</p>
       <div class="pricing-grid">
         <div class="card">
           <h3>Pack Starting Block</h3>
-          <p>Audit d’analyse marketing produit + 1 email en deux versions (A/B test).</p>
+          <ul>
+            <li>Audit d’analyse marketing complet</li>
+            <li>1 email en deux versions (A/B test)</li>
+            <li>Recommandations stratégiques personnalisées</li>
+          </ul>
           <p class="price">150 – 200 €</p>
         </div>
         <div class="card">
           <h3>Pack Plume</h3>
-          <p>Newsletter de 4 emails/mois, idéale pour maintenir un lien constant avec votre audience.</p>
+          <ul>
+            <li>Newsletter de 4 emails / mois</li>
+            <li>Stratégie de contenu continue</li>
+            <li>Suivi mensuel sans engagement</li>
+          </ul>
           <p class="price">350 – 500 € / mois</p>
         </div>
         <div class="card">
           <h3>Pack Compagnon d’aventure</h3>
-          <p>Suivi marketing complet et personnalisé (tunnels de vente, emails, pages de vente, posts et publicités sur les réseaux sociaux, etc.).</p>
+          <ul>
+            <li>Suivi marketing complet et personnalisé</li>
+            <li>Création de tunnels de vente et publicités</li>
+            <li>Gestion de campagnes multicanales</li>
+          </ul>
           <p class="price">1 500 – 2 000 € / mois</p>
         </div>
       </div>
     </div>
+
+    <!-- BENEFICES -->
+    <div class="benefits-section">
+      <h2>Ce dont vous <strong>bénéficiez</strong> en travaillant avec moi</h2>
+      <ul>
+        <li>Des résultats positifs, mesurables et rentables dans vos projets</li>
+        <li>Une personne toujours à vos côtés pour vous écouter et vous conseiller</li>
+        <li>Un échange constructif et 100% tourné vers votre réussite (le client est roi, après tout)</li>
+        <li>Des bonus gratuits et offerts de bon cœur !</li>
+      </ul>
+    </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <img src="logo.png" alt="Logo TMS Copywriting" />
     <p>Parce que vos emails méritent plus que des phrases bien tournées. Ils méritent une voix, une stratégie et un ton qui marquent les esprits.</p>
     <p>Souvenez-vous que vous n’achetez pas qu’un simple email, mais une clé vers des résultats tangibles.</p>
+    <a href="https://www.clippings.me/thomas_ledu" target="_blank" class="portfolio-btn">Mon Portfolio</a><br>
     <a href="mailto:pro.thomas.ledu@gmail.com?subject=Demande%20de%20renseignements" class="contact-btn">Me contacter</a>
+    <p style="margin-top:15px; font-size:0.95rem; color:#bfbfbf;">pro.thomas.ledu@gmail.com</p>
     <p style="margin-top:20px; font-size:0.9rem; color:#888;">— Thomas LE DU, Copywriter en Email Marketing</p>
   </footer>
+
+  <script>
+    // ---- BARRE DE PROGRESSION ----
+    window.addEventListener('scroll', () => {
+      const progress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+    });
+
+    // ---- ANIMATION APPARITION DES BLOCS ----
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
 </body>
 </html>
+
