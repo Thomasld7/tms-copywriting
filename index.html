@@ -6,6 +6,27 @@
   <title>TMS Copywriting — Page de Vente</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* pour forcer le prix à aller en bas */
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+    }
+
+    .price {
+      position: absolute;
+      bottom: 20px;    /* distance depuis le bas du bloc */
+      right: 25px;     /* distance depuis la droite du bloc */
+      font-weight: 600;
+      color: var(--silver);
+      text-align: right;
+    }
     :root {
       --bg: #0b0d17;
       --silver: #d8d8d8;
