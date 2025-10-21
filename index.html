@@ -439,56 +439,6 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       }, { passive: true });
     })();
 
-  
-  // ---------- Animation once per visit (robuste pour mobile/Private mode) ----------
-  (function(){
-    const FADE_SELECTOR = '.fade-in, .card';
-    const allFade = Array.from(document.querySelectorAll(FADE_SELECTOR));
-    const seenKey = 'tms_fade_seen_v1';
-
-    function safeGet(key){
-      try { return sessionStorage.getItem(key); }
-      catch (e) { return null; } // Safari private mode ou stockage désactivé
-    }
-    function safeSet(key, value){
-      try { sessionStorage.setItem(key, value); return true; }
-      catch (e) { return false; } // ignore si impossible d'écrire
-    }
-
-    // Si déjà vu cette session, on révèle tout sans animation
-    if (safeGet(seenKey)){
-      allFade.forEach(el => el.classList.add('visible'));
-      document.querySelectorAll('.card').forEach(c => c.classList.add('visible'));
-      return;
-    }
-
-    // Fallback si IntersectionObserver non supporté : révéler tout
-    if (!('IntersectionObserver' in window)){
-      allFade.forEach(el => el.classList.add('visible'));
-      document.querySelectorAll('.card').forEach(c => c.classList.add('visible'));
-      safeSet(seenKey, '1');
-      return;
-    }
-
-    // Observer normal (avec try/catch autour du setItem)
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting){
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-          // On tente d'écrire dans sessionStorage mais on ignore l'erreur si elle survient
-          try { sessionStorage.setItem(seenKey, '1'); } catch (e) { /* noop */ }
-        }
-      });
-    }, {
-      threshold: 0.12,
-      // rootMargin peut aider sur petits écrans : déclencher un peu plus tôt
-      rootMargin: '0px 0px -6% 0px'
-    });
-
-    allFade.forEach(el => io.observe(el));
-  })();
-
 
     // ---------- Hover / touch animation for cards ----------
     (function(){
