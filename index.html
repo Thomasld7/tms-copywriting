@@ -144,17 +144,19 @@
 
     .list { list-style: none; }
 
+    .list {
+      list-style: none;
+      margin-top: 10px;
+      padding-left: 0;
+   }
+
     .list li {
       display: flex;
       align-items: flex-start;
-      margin: 12px 0;
       gap: 10px;
-    }
-
-    .list .icon {
-      flex: 0 0 22px;
-      margin-top: 2px;
-    }
+      line-height: 1.6;
+      text-align: left;
+   }
 
     .list svg {
       width: 18px;
@@ -164,6 +166,15 @@
       stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .list li span {
+      display: block;
+      flex: 1;                /* permet au texte de s'aligner proprement */                                                                                                                                                                  
+      margin-top: 0;
+      word-wrap: break-word;
     }
 
     .intro {
