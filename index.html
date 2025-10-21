@@ -5,178 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TMS Copywriting — Page de Vente</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <style>
-    .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* pour forcer le prix à aller en bas */
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-    }
+   <style>
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* le prix sera poussé en bas via margin-top:auto */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(50px);
+}
 
-    .price {
-      position: absolute;
-      bottom: 20px;    /* distance depuis le bas du bloc */
-      right: 25px;     /* distance depuis la droite du bloc */
-      font-weight: 600;
-      color: var(--silver);
-      text-align: right;
-    }
-    :root {
-      --bg: #0b0d17;
-      --silver: #d8d8d8;
-      --blue-light: #1b2342;
-      --muted: #b8b8b8;
-      --text: #e6e6e6;
-      --card: #10131f;
-      --border: rgba(216,216,216,0.2);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.55);
+}
 
-    header {
-      text-align: center;
-      padding: 90px 20px 50px;
-    }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      color: var(--silver);
-      margin-bottom: 0.4em;
-    }
-    header p {
-      font-size: 1.1rem;
-      color: var(--muted);
-    }
+.card h3 {
+  font-size: 1.3rem;
+  color: var(--silver);
+  margin-bottom: 15px;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
+.card-body { color: #d0d0d0; }
 
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
-      color: var(--silver);
-      text-align: center;
-      margin-bottom: 25px;
-    }
+.list {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
 
-    p { margin-bottom: 15px; }
+.list li {
+  display: flex;
+  align-items: flex-start; /* aligne le SVG et le texte en haut */
+  gap: 10px;
+  line-height: 1.6;
+  text-align: left;
+}
 
-    .section-desc {
-      text-align: center;
-      color: #ccc;
-      margin-bottom: 40px;
-      font-size: 1.05rem;
-    }
+.list li .icon {
+  flex-shrink: 0;
+}
 
-    .btn-row {
-      text-align: center;
-      margin: 35px 0 50px;
-    }
+.list li .icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--silver);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-top: 0.25em; /* ajuste verticalement l'icône par rapport au texte */
+}
 
-    .contact-btn, .portfolio-btn {
-      display: inline-block;
-      background-color: var(--silver);
-      color: var(--bg);
-      text-decoration: none;
-      padding: 14px 34px;
-      border-radius: 30px;
-      font-weight: 500;
-      margin: 10px;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
+.list li span:last-child {
+  display: block;
+  flex: 1;
+  word-wrap: break-word;
+}
 
-    .contact-btn:hover, .portfolio-btn:hover {
-      background-color: #f1f1f1;
-      transform: translateY(-3px);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 35px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(50px);
-    }
-
-    .card.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: transform 0.6s ease, opacity 0.6s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.55);
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      color: var(--silver);
-      margin-bottom: 15px;
-    }
-
-    .card-body { color: #d0d0d0; }
-
-    .list { list-style: none; }
-
-    .list {
-      list-style: none;
-      margin-top: 10px;
-      padding-left: 0;
-    }
-
-    .list li {
-      display: flex;
-      align-items: flex-start; /* aligne le SVG et le texte en haut */
-      gap: 10px;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .list svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--silver);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-      margin-top: 0.2em; /* ajuste légèrement pour mieux aligner verticalement avec le texte */
-    }
-
-    .list li span {
-      display: block;
-      flex: 1;                 /* permet au texte de prendre tout l’espace restant */
-      margin-top: 0;
-      word-wrap: break-word;
-    }
-
+.price {
+  margin-top: auto; /* pousse le prix en bas de la carte */
+  font-weight: 600;
+  color: var(--silver);
+  text-align: right;
+}
+  
     .intro {
       text-align: center;
       font-size: 1.05rem;
