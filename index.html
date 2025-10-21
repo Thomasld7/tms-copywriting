@@ -439,6 +439,37 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       }, { passive: true });
     })();
 
+    // ---------- Animation once per visit ----------
+    (function(){
+      const FADE_SELECTOR = '.fade-in, .card';
+      const allFade = Array.from(document.querySelectorAll(FADE_SELECTOR));
+      const seenKey = 'tms_fade_seen_v1';
+
+      // If already seen this session: reveal all immediately (no animation)
+      if(sessionStorage.getItem(seenKey)){
+        allFade.forEach(el => el.classList.add('visible'));
+        // ensure cards also visible
+        document.querySelectorAll('.card').forEach(c=>c.classList.add('visible'));
+        return;
+      }
+
+      // Intersection observer for progressive reveal (once)
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+            // if many have been revealed, mark session as seen when the first ones appear
+            // we set it when the first element is visible to prevent replaying too often
+            sessionStorage.setItem(seenKey, '1');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      allFade.forEach(el => {
+        io.observe(el);
+      });
+    })();
 
     // ---------- Hover / touch animation for cards ----------
     (function(){
@@ -485,4 +516,4 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
     })();
   </script>
 </body>
-    </html>
+                                                                                              </html>
