@@ -5,83 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TMS Copywriting — Page de Vente</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-   <style>
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* le prix sera poussé en bas via margin-top:auto */
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  transition: transform 0.4s ease, box-shadow 0.3s ease;
-  opacity: 0;
-  transform: translateY(50px);
-}
+  <style>
+    :root {
+      --bg: #0b0d17;
+      --silver: #d8d8d8;
+      --blue-light: #1b2342;
+      --muted: #b8b8b8;
+      --text: #e6e6e6;
+      --card: #10131f;
+      --border: rgba(216,216,216,0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.55);
-}
+    header {
+      text-align: center;
+      padding: 90px 20px 50px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--silver);
+      margin-bottom: 0.4em;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
 
-.card h3 {
-  font-size: 1.3rem;
-  color: var(--silver);
-  margin-bottom: 15px;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
 
-.card-body { color: #d0d0d0; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--silver);
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-.list {
-  list-style: none;
-  margin-top: 10px;
-  padding-left: 0;
-}
+    p { margin-bottom: 15px; }
 
-.list li {
-  display: flex;
-  align-items: flex-start; /* aligne le SVG et le texte en haut */
-  gap: 10px;
-  line-height: 1.6;
-  text-align: left;
-}
+    .section-desc {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 40px;
+      font-size: 1.05rem;
+    }
 
-.list li .icon {
-  flex-shrink: 0;
-}
+    .btn-row {
+      text-align: center;
+      margin: 35px 0 50px;
+    }
 
-.list li .icon svg {
-  width: 18px;
-  height: 18px;
-  stroke: var(--silver);
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  margin-top: 0.25em; /* ajuste verticalement l'icône par rapport au texte */
-}
+    .contact-btn, .portfolio-btn {
+      display: inline-block;
+      background-color: var(--silver);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 14px 34px;
+      border-radius: 30px;
+      font-weight: 500;
+      margin: 10px;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
 
-.list li span:last-child {
-  display: block;
-  flex: 1;
-  word-wrap: break-word;
-}
+    .contact-btn:hover, .portfolio-btn:hover {
+      background-color: #f1f1f1;
+      transform: translateY(-3px);
+    }
 
-.price {
-  margin-top: auto; /* pousse le prix en bas de la carte */
-  font-weight: 600;
-  color: var(--silver);
-  text-align: right;
-}
-  
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.55);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      color: var(--silver);
+      margin-bottom: 15px;
+    }
+
+    .card-body { color: #d0d0d0; }
+
+    .list { list-style: none; }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      margin: 12px 0;
+      gap: 10px;
+    }
+
+    .list .icon {
+      flex: 0 0 22px;
+      margin-top: 2px;
+    }
+
+    .list svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--silver);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .intro {
       text-align: center;
       font-size: 1.05rem;
@@ -209,7 +272,7 @@
     </div>
     
 
-    <p class="section-desc fade-in"><em>💡 Les tarifs ci-dessous sont donnés à titre indicatif et peuvent varier selon la complexité du projet, la longueur du contenu et les objectifs définis avec le client.</em></p>
+    <p class="section-desc fade-in"><em>*Les offres ci-dessous sont à titre indicatif et peuvent varier selon vos besoins spécifiques.</em></p>
     
     <!-- Email Unique -->
     <section class="fade-in">
@@ -224,7 +287,6 @@
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Email Storytelling</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Email de Newsletter</span></li>
           </ul>
-        <p class="price">120 – 150 €</p>
         </div>
       </div>
     </section>
@@ -239,7 +301,6 @@
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>3 emails ciblés et percutants</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Structure claire et persuasive</span></li>
           </ul>
-        <p class="price">250 – 400 €</p>
         </div>
 
         <div class="card">
@@ -248,7 +309,6 @@
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>4 ou 5 emails cohérents</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Storytelling intégré à la stratégie</span></li>
           </ul>
-        <p class="price">400 – 700 €</p>
         </div>
 
         <div class="card">
@@ -258,7 +318,6 @@
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Analyse continue des performances et ajustements stratégiques</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi de cohérence et optimisation des transitions narratives</span></li>
           </ul>
-        <p class="price">700 – 1 200 €</p>
         </div>
       </div>
     </section>
@@ -269,10 +328,10 @@
       <div class="pricing-grid">
         <div class="card">
           <h3>Pack Starting Block</h3>
+          <p>Avant d’écrire, j’échange avec vous pour comprendre votre produit, votre public cible et vos objectifs. Chaque mot sera pensé pour servir votre vision.</p>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>1 email en deux versions (A/B test)</span></li>
           </ul>
-        <p class="price">150 – 200 €</p>
         </div>
 
         <div class="card">
@@ -282,16 +341,13 @@
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Stratégie de contenu continue</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi mensuel sans engagement</span></li>
           </ul>
-        <p class="price">350 – 500 € / mois</p>
         </div>
 
         <div class="card">
           <h3>Pack Échec et Mat</h3>
           <ul class="list">
-            <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Accompagnement mensuel sur vos séquences d’emails (analyse, réécriture, suivi et optimisation continue)</span></li>
-            <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi mensuel sans engagement</span></li>
-          </ul>
-        <p class="price">700 – 1 200 € / mois</p>
+            <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi complet et personnalisé des séquences mails pendant 1 mois (optimisations quotidiennes si nécessaire)</span></li>
+            </ul>
           </div>
         </div>
       </div>
