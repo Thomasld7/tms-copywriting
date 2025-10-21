@@ -387,16 +387,61 @@
     <p style="margin-top:18px; font-size:0.9rem; color:#888;">— Thomas LE DU, Copywriter en Email Marketing</p>
   </footer>
 
-<!-- Mentions légales et conditions - Section discrète -->
-<div style="margin-top:40px; font-size:0.85rem; color:#777; text-align:center; line-height:1.5;">
-  <p><strong>Mentions légales :</strong> Ce site est édité par Thomas Le Du — Adresse sur demande.</p>
-  <p>Hébergeur : GitHub Pages – Microsoft Corporation, 1 Microsoft Way, Redmond, WA 98052, États-Unis.</p>
-  <p>Numéro SIREN / SIRET : (à compléter)</p>
-  <p><strong>Conditions de vente :</strong> Toute commande passe par un échange préalable par mail et l’acceptation d’un devis. 
-  Paiement par virement bancaire, dans un délai maximum de 30 jours.</p>
-  <p><strong>Droits d’auteur et propriété intellectuelle :</strong> Tous les textes, concepts et créations présents sur ce site ou remis dans le cadre d’une prestation 
-  sont protégés par le Code de la Propriété Intellectuelle. Toute reproduction, diffusion ou modification sans autorisation écrite préalable est interdite.</p>
+<!-- Mentions légales et conditions - Lien + Fenêtre modale -->
+<div style="margin-top:35px; font-size:0.85rem; color:#777; text-align:center;">
+  <a href="#" id="legal-link" style="color:#aaa; text-decoration:none;">Mentions légales & Conditions</a>
 </div>
+
+<!-- Fenêtre modale cachée -->
+<div id="legal-modal" style="
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.8); backdrop-filter:blur(5px);
+  justify-content:center; align-items:center; z-index:2000;
+">
+  <div style="
+    background:#10131f; color:#ddd; max-width:700px; width:90%;
+    border:1px solid rgba(192,192,192,0.2); border-radius:14px;
+    padding:30px 35px; box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    text-align:left; font-size:0.92rem; line-height:1.6; position:relative;
+  ">
+    <button id="close-legal" style="
+      position:absolute; top:12px; right:14px; background:none;
+      color:#ccc; border:none; font-size:1.3rem; cursor:pointer;
+    ">&times;</button>
+
+    <h3 style="text-align:center; margin-bottom:18px; color:#c0c0c0;">Mentions légales & Conditions</h3>
+    <p><strong>Éditeur :</strong> Thomas Le Du — Adresse sur demande.</p>
+    <p><strong>Hébergeur :</strong> GitHub Pages – Microsoft Corporation, 1 Microsoft Way, Redmond, WA 98052, États-Unis.</p>
+    <p><strong>Numéro SIREN / SIRET :</strong> (à compléter)</p>
+    <p><strong>Conditions de vente :</strong> Toute commande passe par un échange préalable par mail et l’acceptation d’un devis. Paiement par virement bancaire, dans un délai maximum de 30 jours.</p>
+    <p><strong>Droits d’auteur et propriété intellectuelle :</strong> Tous les textes, concepts et créations présents sur ce site ou remis dans le cadre d’une prestation sont protégés par le Code de la Propriété Intellectuelle. Toute reproduction, diffusion ou modification sans autorisation écrite préalable est interdite.</p>
+  </div>
+</div>
+
+<script>
+  // --- Gestion de la fenêtre modale ---
+  const link = document.getElementById('legal-link');
+  const modal = document.getElementById('legal-modal');
+  const closeBtn = document.getElementById('close-legal');
+
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  });
+
+  modal.addEventListener('click', e => {
+    if(e.target === modal){
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
       
   <script>
     // ---------- Progress bar ----------
