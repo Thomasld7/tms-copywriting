@@ -89,6 +89,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 35px;
+      align-items: start; /* ensure consistent start alignment for cards */
     }
 
     .card {
@@ -100,6 +101,8 @@
       transition: transform 0.4s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(50px);
+      position: relative; /* for absolute-positioned price */
+      padding-bottom: 64px; /* room for price at bottom-right */
     }
 
     .card.visible {
@@ -225,6 +228,23 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* PRICE STYLING - bottom-right, consistent across cards */
+    .price {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      color: var(--silver);
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    /* touch feedback mimic */
+    .card.touched {
+      transform: translateY(-6px) scale(1.01) !important;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.6) !important;
+    }
   </style>
 </head>
 <body>
@@ -280,7 +300,7 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       <h2>💌 Email Unique</h2>
       <p class="section-desc">Parfait pour une newsletter, une annonce ou un email promotionnel. J’écris un message clair, engageant et optimisé pour inciter vos lecteurs à cliquer et à passer à l’action.</p>
       <div class="pricing-grid">
-        <div class="card">
+        <div class="card" tabindex="0">
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Short Email</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Email de Vente</span></li>
@@ -288,6 +308,7 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Email Storytelling</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Email de Newsletter</span></li>
           </ul>
+          <div class="price">120 - 150 €</div>
         </div>
       </div>
     </section>
@@ -297,29 +318,32 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       <h2>🔗 Séquences d’emails</h2>
       <p class="section-desc">Idéal pour vos lancements, tunnels de vente, séquences d’onboarding ou relances. Je construis un parcours narratif fluide et cohérent pour guider le lecteur pas à pas vers la conversion.</p>
       <div class="pricing-grid">
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Séquence courte</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>3 emails ciblés et percutants</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Structure claire et persuasive</span></li>
           </ul>
+          <div class="price">250 - 400 €</div>
         </div>
 
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Séquence complète</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>4 ou 5 emails cohérents</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Plus grande variété d'approches pour plaire à davantage de prospects</span></li>
           </ul>
+          <div class="price">400 - 700 €</div>
         </div>
 
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Séquence longue</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>6 à 10 emails progressifs et engageants</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Analyse continue des performances et ajustements stratégiques</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi de cohérence et optimisation des transitions narratives</span></li>
           </ul>
+          <div class="price">700 - 1 200 €</div>
         </div>
       </div>
     </section>
@@ -329,30 +353,32 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       <h2>📦 Packs stratégiques</h2>
       <p class="section-desc">Des offres ambitieuses pour une approche clé en main qui combine stratégie, créativité et efficacité. Idéal pour un lancement, une newsletter régulière, ou un suivi complet de la vente de vos produits.</p>
       <div class="pricing-grid">
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Pack Starting Block</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>1 email en deux versions (A/B test)</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Avant d’écrire, j’échange avec vous de manière plus approfondie pour déterminer les approches les plus pertinentes à utiliser dans vos emails</span></li>
           </ul>
+          <div class="price">150 - 200 €</div>
         </div>
 
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Pack Plume</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Newsletter de 4 emails / mois</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Stratégie de contenu continue</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi mensuel sans engagement</span></li>
           </ul>
+          <div class="price">350 - 500 € / mois</div>
         </div>
 
-        <div class="card">
+        <div class="card" tabindex="0">
           <h3>Pack Échec et Mat</h3>
           <ul class="list">
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Accompagnement mensuel sur vos séquences d’emails (analyse, écriture, suivi et optimisation continue)</span></li>
             <li><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7.5 12.2l2.6 2.6L16.8 8.2"/></svg></span><span>Suivi mensuel sans engagement</span></li>
-        </ul>
-          </div>
+          </ul>
+          <div class="price">1 500 - 2 000 € / mois</div>
         </div>
       </div>
     </section>
@@ -477,9 +503,6 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       document.head.appendChild(style);
     })();
 
-    // ---------- Ensure mailto works: fallback to Gmail link if mail client not available ----------
-    // We won't auto-change the button; user can choose. Optionally implement logic here.
-
     // ---------- Accessibility: visible focus outlines when tabbing ----------
     (function(){
       document.addEventListener('keydown', (e) => {
@@ -493,4 +516,4 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
     })();
   </script>
 </body>
-</html>                                                              
+    </html>
