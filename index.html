@@ -254,6 +254,23 @@
       transform: translateY(-6px) scale(1.01) !important;
       box-shadow: 0 14px 30px rgba(0,0,0,0.6) !important;
     }
+
+      <style>
+    /* Ajouter ces règles dans votre balise style existante */
+    @media (max-width: 768px) {
+      .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
   </style>
 </head>
 <body>
@@ -448,36 +465,59 @@ Chaque mission fait l’objet d’un devis personnalisé après un échange pré
       }, { passive: true });
     })();
 
-    // ---------- Animation once per visit ----------
+        // ---------- Animation once per visit ----------
     (function(){
       const FADE_SELECTOR = '.fade-in, .card';
       const allFade = Array.from(document.querySelectorAll(FADE_SELECTOR));
       const seenKey = 'tms_fade_seen_v1';
 
-      // If already seen this session: reveal all immediately (no animation)
-      if(sessionStorage.getItem(seenKey)){
+      // Fonction pour révéler tous les éléments
+      const revealAll = () => {
         allFade.forEach(el => el.classList.add('visible'));
-        // ensure cards also visible
-        document.querySelectorAll('.card').forEach(c=>c.classList.add('visible'));
+        document.querySelectorAll('.card').forEach(c => c.classList.add('visible'));
+      };
+
+      // Si la page est déjà chargée ou si on est sur mobile, révéler immédiatement
+      if (sessionStorage.getItem(seenKey) || window.innerWidth <= 768) {
+        revealAll();
         return;
       }
 
-      // Intersection observer for progressive reveal (once)
+      // Création de l'Intersection Observer avec des options optimisées
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '50px 0px'
+      };
+
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-          if(entry.isIntersecting){
+          if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             obs.unobserve(entry.target);
-            // if many have been revealed, mark session as seen when the first ones appear
-            // we set it when the first element is visible to prevent replaying too often
             sessionStorage.setItem(seenKey, '1');
           }
         });
-      }, { threshold: 0.12 });
+      }, observerOptions);
 
+      // Observer chaque élément
       allFade.forEach(el => {
         io.observe(el);
       });
+
+      // Gestionnaire de redimensionnement pour les changements d'orientation
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          if (window.innerWidth <= 768) {
+            io.disconnect();
+            revealAll();
+          }
+        }, 250);
+      }, { passive: true });
+
+      // Fallback pour assurer que tout est visible après un certain délai
+      setTimeout(revealAll, 3000);
     })();
 
     // ---------- Hover / touch animation for cards ----------
