@@ -86,23 +86,26 @@
     }
 
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 35px;
-      align-items: start; /* ensure consistent start alignment for cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  align-items: stretch; /* Change this from 'start' to 'stretch' */
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(50px);
-      position: relative; /* for absolute-positioned price */
-      padding-bottom: 64px; /* room for price at bottom-right */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(50px);
+  position: relative;
+  padding-bottom: 64px;
+  height: 100%; /* Add this */
+  display: flex; /* Add this */
+  flex-direction: column; /* Add this */
     }
 
     .card.visible {
@@ -133,6 +136,12 @@
       gap: 10px;
     }
 
+    .list {
+  flex-grow: 1; /* Add this */
+  display: flex;
+  flex-direction: column;
+    }
+    
     .list .icon {
       flex: 0 0 22px;
       margin-top: 2px;
